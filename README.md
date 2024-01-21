@@ -1,4 +1,4 @@
-![pylint]()
+![pylint](https://img.shields.io/badge/pylint-9.44-yellow?logo=python&logoColor=white)
 
 # Description
 Implements some basic automation for auto submitting tips on [kicktipp](https://kicktipp.com). The auto submitting is based on [selenium](https://www.selenium.dev) browser automation. Login credentials are PGP-encrypted with [SOPS](https://technotim.live/posts/install-mozilla-sops/).
