@@ -1,7 +1,7 @@
 # Description
 Implements some basic automation for auto submitting tips on [kicktipp](https://kicktipp.com). The auto submitting is based on [selenium](https://www.selenium.dev) browser automation.
 
-Currently only result submitting for the "2-1 bot" is implemented, but the automation module can be extended easily for each types of bets.
+Currently only result submitting for the `2-1 bot` is implemented, but the automation module can be extended easily for each types of bets.
 
 
 # Requirements
