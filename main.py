@@ -39,8 +39,16 @@ def get_creds() -> tuple[str, str]:
     try:
         result = subprocess.run(['sops', '-d', CREDS_FILE],
                                 capture_output=True,
+                                check=True,
                                 text=True)
+    except FileNotFoundError as fnfe:
+        print("Install sops first: ", fnfe)
+        sys.exit(1)
+    except subprocess.CalledProcessError as cpe:
+        print("Could not decrypt credential file: ", cpe, cpe.stderr)
+        sys.exit(1)
     except:
+        sys.exit(1)
         return None, None
 
     creds = yaml.safe_load(result.stdout)
