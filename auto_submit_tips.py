@@ -2,6 +2,7 @@
 """Implements tipps auto-submitting on kicktipp.com"""
 
 # import random
+import logging
 import subprocess
 import sys
 import time
@@ -18,6 +19,18 @@ NUMBER_MATCHDAYS = 38
 TIPPER_ID = "46952968"
 TIPP_SAISON_ID = "1670602"
 CREDS_FILE = "creds-secret.yaml"
+
+logger = logging.getLogger("")
+
+def init_logging():
+    """Init logging module"""
+    log_level = logging.INFO
+    logger.setLevel(log_level)
+    handler = logging.StreamHandler(sys.stdout)
+    handler.setLevel(log_level)
+    formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+    handler.setFormatter(formatter)
+    logger.addHandler(handler)
 
 def init_web_driver():
     """Initialize web driver"""
@@ -92,16 +105,33 @@ def make_tipps_2_1(driver):
 
         submit_button = driver.find_element(by=By.NAME, value="submitbutton")
         submit_button.click()
+        logger.info("Submitted tips for match day %d/%d",
+                    match_day,
+                    NUMBER_MATCHDAYS)
         time.sleep(3)
 
 def main() -> int:
     """Entry point"""
-    driver = init_web_driver()
-    login(driver)
-    make_tipps_2_1(driver)
+    init_logging()
+    logger.info("Starting auto recording")
 
-    time.sleep(3)
-    driver.quit()
+    try:
+        driver = init_web_driver()
+        logger.info("Web driver initialized")
+
+        login(driver)
+        logger.info("Got web credentials")
+
+        make_tipps_2_1(driver)
+        logger.info("Auto tipping performed")
+
+        time.sleep(3)
+    except: # pylint: disable=bare-except
+        logger.error("Exit failed")
+    finally:
+        if driver:
+            driver.quit()
+        logger.info("Exiting gracefully")
 
 if __name__ == '__main__':
     sys.exit(main())
