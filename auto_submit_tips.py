@@ -127,8 +127,9 @@ def main() -> int:
         logger.info("Auto tipping performed")
 
         time.sleep(3)
+        logger.info("Success")
     except: # pylint: disable=bare-except
-        logger.error("Exit failed")
+        logger.error("Failed")
     finally:
         if driver:
             driver.quit()
