@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Implements tipps auto-submitting on kicktipp.com"""
+"""Implements tips auto submitting on kicktipp.com"""
 
-# import random
 import logging
+import random
 import subprocess
 import sys
 import time
@@ -14,11 +14,14 @@ from selenium.webdriver.common.by import By
 
 BASE_URL = "https://www.kicktipp.co.uk"
 COMMUNITY_URL = "cominghome2020"
-ADD_TIPPS_URL = "spielleiter/tippsnachtragen"
+ADD_TIPS_URL = "spielleiter/tippsnachtragen"
 NUMBER_MATCHDAYS = 38
-TIPPER_ID = "46952968"
+TIPPER_ID_2_1_BOT = "46952968"   # 2:1 bot
+TIPPER_ID_7_6_BOT = "50360538"   # random bot
 TIPP_SAISON_ID = "1670602"
 CREDS_FILE = "creds-secret.yaml"
+
+RANDOM_RESULTS = []
 
 logger = logging.getLogger("")
 
@@ -80,20 +83,39 @@ def login(driver):
     submit_button = driver.find_element(by=By.NAME, value="submitbutton")
     submit_button.click()
 
-# table = driver.find_element(by=By.ID, value="tippsnachtragenSpiele")
-#for cell in table.find_elements(by=By.XPATH, value="//input[@inputmode='numeric']"):
-    # rand = random.randint(0,9)
-    # cell.clear()
-    # cell.send_keys(rand)
+def init_global_random_array():
+    """Initialize random results array
 
-def make_tipps_2_1(driver):
-    """Loop through all matchdays and submit results 2:1 for the bot"""
-    ext_url=f"{BASE_URL}/{COMMUNITY_URL}/{ADD_TIPPS_URL}?tipperId={TIPPER_ID}"
+    distrbution:
+    27% - 1    goals
+    20% - 2    goals
+    15% - 0,3  goals
+    10% - 4    goals
+    5%  - 5    goals
+    3%  - 6,7  goals
+    1%  - 8,9  goals
+    """
+    global RANDOM_RESULTS
+    RANDOM_RESULTS = RANDOM_RESULTS + [0] * 15
+    RANDOM_RESULTS = RANDOM_RESULTS + [1] * 27
+    RANDOM_RESULTS = RANDOM_RESULTS + [2] * 20
+    RANDOM_RESULTS = RANDOM_RESULTS + [3] * 15
+    RANDOM_RESULTS = RANDOM_RESULTS + [4] * 10
+    RANDOM_RESULTS = RANDOM_RESULTS + [5] * 5
+    RANDOM_RESULTS = RANDOM_RESULTS + [6] * 3
+    RANDOM_RESULTS = RANDOM_RESULTS + [7] * 3
+    RANDOM_RESULTS = RANDOM_RESULTS + [8] * 1
+    RANDOM_RESULTS = RANDOM_RESULTS + [9] * 1
+
+def make_tips_2_1(driver):
+    """Loop through all matchdays and submit results 2:1 for 2_1_bot"""
+    ext_url=f"{BASE_URL}/{COMMUNITY_URL}/{ADD_TIPS_URL}?tipperId={TIPPER_ID_2_1_BOT}"
     for i in range(NUMBER_MATCHDAYS):
         match_day = i+1
         driver.get(f"{ext_url}&tippsaisonId={TIPP_SAISON_ID}")
         driver.get(f"{ext_url}")
         driver.get(f"{ext_url}&tippsaisonId={TIPP_SAISON_ID}&spieltagIndex="+str(match_day))
+
         for cell in driver.find_elements(by=By.XPATH,
                                          value="//input[contains(@name, 'heimTippString')]"):
             cell.clear()
@@ -102,6 +124,29 @@ def make_tipps_2_1(driver):
                                          value="//input[contains(@name, 'gastTippString')]"):
             cell.clear()
             cell.send_keys(1)
+        time.sleep(2)
+
+        submit_button = driver.find_element(by=By.NAME, value="submitbutton")
+        submit_button.click()
+        logger.info("Submitted tips for match day %d/%d",
+                    match_day,
+                    NUMBER_MATCHDAYS)
+        time.sleep(3)
+
+def make_random_tips(driver):
+    """Loop through all matchdays and submit random results for 7_6_bot"""
+    ext_url=f"{BASE_URL}/{COMMUNITY_URL}/{ADD_TIPS_URL}?tipperId={TIPPER_ID_7_6_BOT}"
+    for i in range(NUMBER_MATCHDAYS):
+        match_day = i+1
+        driver.get(f"{ext_url}&tippsaisonId={TIPP_SAISON_ID}")
+        driver.get(f"{ext_url}")
+        driver.get(f"{ext_url}&tippsaisonId={TIPP_SAISON_ID}&spieltagIndex="+str(match_day))
+
+        table = driver.find_element(by=By.ID, value="tippsnachtragenSpiele")
+        for cell in table.find_elements(by=By.XPATH, value="//input[@inputmode='numeric']"):
+            rand = random.randint(0, 99)
+            cell.clear()
+            cell.send_keys(RANDOM_RESULTS[rand])
         time.sleep(2)
 
         submit_button = driver.find_element(by=By.NAME, value="submitbutton")
@@ -123,8 +168,16 @@ def main() -> int:
         login(driver)
         logger.info("Got web credentials")
 
-        make_tipps_2_1(driver)
-        logger.info("Auto tipping performed")
+        random_bot = True
+        if random_bot:
+            init_global_random_array()
+            logger.info("Random results generated")
+
+            make_random_tips(driver)
+            logger.info("Auto tipping 'random' performed")
+        else:
+            make_tips_2_1(driver)
+            logger.info("Auto tipping '2:1' performed")
 
         time.sleep(3)
         logger.info("Success")
