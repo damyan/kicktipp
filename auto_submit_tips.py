@@ -60,9 +60,8 @@ def get_creds() -> tuple[str, str]:
     except subprocess.CalledProcessError as cpe:
         print("Could not decrypt credential file: ", cpe, cpe.stderr)
         sys.exit(1)
-    except:
+    except: # pylint: disable=bare-except
         sys.exit(1)
-        return None, None
 
     creds = yaml.safe_load(result.stdout)
 
@@ -89,16 +88,18 @@ def login(driver):
 
 def make_tipps_2_1(driver):
     """Loop through all matchdays and submit results 2:1 for the bot"""
+    ext_url=f"{BASE_URL}/{COMMUNITY_URL}/{ADD_TIPPS_URL}?tipperId={TIPPER_ID}"
     for i in range(NUMBER_MATCHDAYS):
         match_day = i+1
-        driver.get(
-            f"{BASE_URL}/{COMMUNITY_URL}/{ADD_TIPPS_URL}?tipperId={TIPPER_ID}&tippsaisonId={TIPP_SAISON_ID}")
-        driver.get(f"{BASE_URL}/{COMMUNITY_URL}/{ADD_TIPPS_URL}?tipperId={TIPPER_ID}")
-        driver.get(f"{BASE_URL}/{COMMUNITY_URL}/{ADD_TIPPS_URL}?tipperId={TIPPER_ID}&tippsaisonId={TIPP_SAISON_ID}&spieltagIndex="+str(match_day))
-        for cell in driver.find_elements(by=By.XPATH, value="//input[contains(@name, 'heimTippString')]"):
+        driver.get(f"{ext_url}&tippsaisonId={TIPP_SAISON_ID}")
+        driver.get(f"{ext_url}")
+        driver.get(f"{ext_url}&tippsaisonId={TIPP_SAISON_ID}&spieltagIndex="+str(match_day))
+        for cell in driver.find_elements(by=By.XPATH,
+                                         value="//input[contains(@name, 'heimTippString')]"):
             cell.clear()
             cell.send_keys(2)
-        for cell in driver.find_elements(by=By.XPATH, value="//input[contains(@name, 'gastTippString')]"):
+        for cell in driver.find_elements(by=By.XPATH,
+                                         value="//input[contains(@name, 'gastTippString')]"):
             cell.clear()
             cell.send_keys(1)
         time.sleep(2)
