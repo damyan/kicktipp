@@ -76,11 +76,12 @@ def login(driver):
 
 def make_tipps_2_1(driver):
     """Loop through all matchdays and submit results 2:1 for the bot"""
-    for i in range(NUMBER_MATCHDAYS+1):
+    for i in range(NUMBER_MATCHDAYS):
+        match_day = i+1
         driver.get(
             f"{BASE_URL}/{COMMUNITY_URL}/{ADD_TIPPS_URL}?tipperId={TIPPER_ID}&tippsaisonId={TIPP_SAISON_ID}")
         driver.get(f"{BASE_URL}/{COMMUNITY_URL}/{ADD_TIPPS_URL}?tipperId={TIPPER_ID}")
-        driver.get(f"{BASE_URL}/{COMMUNITY_URL}/{ADD_TIPPS_URL}?tipperId={TIPPER_ID}&tippsaisonId={TIPP_SAISON_ID}&spieltagIndex="+str(i))
+        driver.get(f"{BASE_URL}/{COMMUNITY_URL}/{ADD_TIPPS_URL}?tipperId={TIPPER_ID}&tippsaisonId={TIPP_SAISON_ID}&spieltagIndex="+str(match_day))
         for cell in driver.find_elements(by=By.XPATH, value="//input[contains(@name, 'heimTippString')]"):
             cell.clear()
             cell.send_keys(2)
