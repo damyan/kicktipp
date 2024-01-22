@@ -5,7 +5,6 @@ import logging
 import random
 import subprocess
 import sys
-import time
 import yaml
 
 from selenium import webdriver
@@ -125,14 +124,12 @@ def make_tips_2_1(driver):
                                          value="//input[contains(@name, 'gastTippString')]"):
             cell.clear()
             cell.send_keys(1)
-        time.sleep(2)
 
         submit_button = driver.find_element(by=By.NAME, value="submitbutton")
         submit_button.click()
         logger.info("Submitted tips for match day %d/%d",
                     match_day,
                     NUMBER_MATCHDAYS)
-        time.sleep(3)
 
 def make_random_tips(driver):
     """Loop through all matchdays and submit random results for 7_6_bot"""
@@ -148,14 +145,12 @@ def make_random_tips(driver):
             rand = random.randint(0, 999)
             cell.clear()
             cell.send_keys(RANDOM_RESULTS[rand])
-        time.sleep(2)
 
         submit_button = driver.find_element(by=By.NAME, value="submitbutton")
         submit_button.click()
         logger.info("Submitted tips for match day %d/%d",
                     match_day,
                     NUMBER_MATCHDAYS)
-        time.sleep(3)
 
 def main() -> int:
     """Entry point"""
@@ -180,7 +175,6 @@ def main() -> int:
             make_tips_2_1(driver)
             logger.info("Auto tipping '2:1' performed")
 
-        time.sleep(3)
         logger.info("Success")
     except: # pylint: disable=bare-except
         logger.error("Failed")
