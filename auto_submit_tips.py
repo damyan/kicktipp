@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Implements tips auto submitting on kicktipp.com"""
 
+import argparse
 import logging
 import random
 import subprocess
@@ -23,6 +24,31 @@ CREDS_FILE = "creds-secret.yaml"
 RANDOM_RESULTS = []
 
 logger = logging.getLogger("")
+
+def parse_args():
+    """Parse command line arguments
+
+    return (list): Return parsed arguments
+    """
+    parser = argparse.ArgumentParser(
+        prog='Kicktipp auto tipping',
+        description='Perform automatic kicktipp tipping for the bots')
+    group = parser.add_mutually_exclusive_group()
+    group.add_argument('-2',
+                       action='store_const',
+                       const='two_one',
+                       dest='mode',
+                       help="2:1 tipping")
+    group.add_argument('-r',
+                       action='store_const',
+                       const='random',
+                       dest='mode',
+                       help="random tipping")
+    parser.set_defaults(mode='two_one')
+    args = parser.parse_args()
+    logger.debug("Command line arguments: %s", args)
+
+    return args
 
 def init_logging():
     """Init logging module"""
@@ -155,6 +181,8 @@ def make_random_tips(driver):
 def main() -> int:
     """Entry point"""
     init_logging()
+
+    args = parse_args()
     logger.info("Starting auto recording")
 
     try:
@@ -164,16 +192,18 @@ def main() -> int:
         login(driver)
         logger.info("Got web credentials")
 
-        random_bot = True
-        if random_bot:
+        if args.random:
             init_global_random_array()
             logger.info("Random results generated")
 
             make_random_tips(driver)
             logger.info("Auto tipping 'random' performed")
-        else:
+        elif args.two_one:
             make_tips_2_1(driver)
             logger.info("Auto tipping '2:1' performed")
+        else:
+            # cannot happen, actually
+            logger.error("Unknown tipping mode")
 
         logger.info("Success")
     except: # pylint: disable=bare-except
