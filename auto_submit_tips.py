@@ -87,25 +87,26 @@ def init_global_random_array():
     """Initialize random results array
 
     distrbution:
-    27% - 1    goals
-    20% - 2    goals
-    15% - 0,3  goals
-    10% - 4    goals
-    5%  - 5    goals
-    3%  - 6,7  goals
-    1%  - 8,9  goals
+    21%  - 0    goals
+    30%  - 1    goals
+    24%  - 2    goals
+    15%  - 3    goals
+    6%   - 4    goals
+    2%   - 5    goals
+    0.8% - 6,7  goals
+    0.2% - 8,9  goals
     """
     global RANDOM_RESULTS # pylint: disable=global-statement
-    RANDOM_RESULTS += [0] * 15
-    RANDOM_RESULTS += [1] * 27
-    RANDOM_RESULTS += [2] * 20
-    RANDOM_RESULTS += [3] * 15
-    RANDOM_RESULTS += [4] * 10
-    RANDOM_RESULTS += [5] * 5
-    RANDOM_RESULTS += [6] * 3
-    RANDOM_RESULTS += [7] * 3
-    RANDOM_RESULTS += [8] * 1
-    RANDOM_RESULTS += [9] * 1
+    RANDOM_RESULTS += [0] * 210
+    RANDOM_RESULTS += [1] * 300
+    RANDOM_RESULTS += [2] * 240
+    RANDOM_RESULTS += [3] * 150
+    RANDOM_RESULTS += [4] * 60
+    RANDOM_RESULTS += [5] * 20
+    RANDOM_RESULTS += [6] * 8
+    RANDOM_RESULTS += [7] * 8
+    RANDOM_RESULTS += [8] * 2
+    RANDOM_RESULTS += [9] * 2
 
 def make_tips_2_1(driver):
     """Loop through all matchdays and submit results 2:1 for 2_1_bot"""
@@ -144,7 +145,7 @@ def make_random_tips(driver):
 
         table = driver.find_element(by=By.ID, value="tippsnachtragenSpiele")
         for cell in table.find_elements(by=By.XPATH, value="//input[@inputmode='numeric']"):
-            rand = random.randint(0, 99)
+            rand = random.randint(0, 999)
             cell.clear()
             cell.send_keys(RANDOM_RESULTS[rand])
         time.sleep(2)
