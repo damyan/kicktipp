@@ -192,13 +192,13 @@ def main() -> int:
         login(driver)
         logger.info("Got web credentials")
 
-        if args.random:
+        if args.mode == "random":
             init_global_random_array()
             logger.info("Random results generated")
 
             make_random_tips(driver)
             logger.info("Auto tipping 'random' performed")
-        elif args.two_one:
+        elif args.mode == "two_one":
             make_tips_2_1(driver)
             logger.info("Auto tipping '2:1' performed")
         else:
