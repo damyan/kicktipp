@@ -95,17 +95,17 @@ def init_global_random_array():
     3%  - 6,7  goals
     1%  - 8,9  goals
     """
-    global RANDOM_RESULTS
-    RANDOM_RESULTS = RANDOM_RESULTS + [0] * 15
-    RANDOM_RESULTS = RANDOM_RESULTS + [1] * 27
-    RANDOM_RESULTS = RANDOM_RESULTS + [2] * 20
-    RANDOM_RESULTS = RANDOM_RESULTS + [3] * 15
-    RANDOM_RESULTS = RANDOM_RESULTS + [4] * 10
-    RANDOM_RESULTS = RANDOM_RESULTS + [5] * 5
-    RANDOM_RESULTS = RANDOM_RESULTS + [6] * 3
-    RANDOM_RESULTS = RANDOM_RESULTS + [7] * 3
-    RANDOM_RESULTS = RANDOM_RESULTS + [8] * 1
-    RANDOM_RESULTS = RANDOM_RESULTS + [9] * 1
+    global RANDOM_RESULTS # pylint: disable=global-statement
+    RANDOM_RESULTS += [0] * 15
+    RANDOM_RESULTS += [1] * 27
+    RANDOM_RESULTS += [2] * 20
+    RANDOM_RESULTS += [3] * 15
+    RANDOM_RESULTS += [4] * 10
+    RANDOM_RESULTS += [5] * 5
+    RANDOM_RESULTS += [6] * 3
+    RANDOM_RESULTS += [7] * 3
+    RANDOM_RESULTS += [8] * 1
+    RANDOM_RESULTS += [9] * 1
 
 def make_tips_2_1(driver):
     """Loop through all matchdays and submit results 2:1 for 2_1_bot"""
