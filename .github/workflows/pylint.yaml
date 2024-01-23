@@ -12,9 +12,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: Silleellie/pylint-github-action@v1
+      - uses: Silleellie/pylint-github-action@v2
         with:
-          package-path: ./
+          lint-path: ./
           python-version: 3.11
           requirements-path: requirements.txt
           readme-path: README.md
