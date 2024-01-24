@@ -31,5 +31,13 @@ pip install -r requirements.txt
 # Execution
 
 ```bash
-./auto_submit_tips.py
+./src/auto_submit_tips.py -h
+usage: Kicktipp auto tipping [-h] [-2 | -r]
+
+Perform automatic kicktipp tipping for the bots
+
+options:
+  -h, --help  show this help message and exit
+  -2          2:1 tipping
+  -r          random tipping
 ```

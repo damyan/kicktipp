@@ -23,4 +23,4 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Run kicktipp
-        run: ./auto_submit_tips.py -h
+        run: ./src/auto_submit_tips.py -h

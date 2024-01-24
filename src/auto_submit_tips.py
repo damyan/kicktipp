@@ -4,6 +4,7 @@
 import argparse
 import logging
 import random
+import os
 import subprocess
 import sys
 import yaml
@@ -19,7 +20,7 @@ NUMBER_MATCHDAYS = 38
 TIPPER_ID_2_1_BOT = "46952968"   # 2:1 bot
 TIPPER_ID_7_6_BOT = "50360538"   # random bot
 TIPP_SAISON_ID = "1670602"
-CREDS_FILE = "creds-secret.yaml"
+CREDS_FILE_PATH = "config/creds-secret.yaml"
 
 RANDOM_RESULTS = []
 
@@ -78,7 +79,9 @@ def get_creds() -> tuple[str, str]:
     return(string): password, if successfully decrypted, None else
     """
     try:
-        result = subprocess.run(['sops', '-d', CREDS_FILE],
+        full_config_file_path = os.path.join(os.path.dirname(__file__),
+                                             CREDS_FILE_PATH)
+        result = subprocess.run(['sops', '-d', full_config_file_path],
                                 capture_output=True,
                                 check=True,
                                 text=True)
