@@ -79,7 +79,7 @@ def get_creds() -> tuple[str, str]:
     return(string): password, if successfully decrypted, None else
     """
     try:
-        full_config_file_path = os.path.join(os.path.basename(__file__),
+        full_config_file_path = os.path.join(os.path.dirname(__file__),
                                              CREDS_FILE_PATH)
         result = subprocess.run(['sops', '-d', full_config_file_path],
                                 capture_output=True,
