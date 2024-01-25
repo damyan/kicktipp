@@ -38,6 +38,6 @@ Perform automatic kicktipp tipping for the bots
 
 options:
   -h, --help  show this help message and exit
-  -2          2:1 tipping
+  -2          2:1 tipping (DEFAULT)
   -r          random tipping
 ```
