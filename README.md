@@ -4,7 +4,7 @@
 Implements some basic automation for auto submitting tips on [kicktipp](https://kicktipp.com). The auto submitting is based on [selenium](https://www.selenium.dev) browser automation. Login credentials are PGP-encrypted with [SOPS](https://technotim.live/posts/install-mozilla-sops/).
 
 Currently only two result submitting strategies are implemented:
-- `2-1` for the "2-1 bot" (use -2, default)
+- `2-1` for the "2-1 bot" (use -2)
 - `random` for the "random bot" (use -r)
 
 but the automation module can be extended easily to support any type of bets.
@@ -38,6 +38,6 @@ Perform automatic kicktipp tipping for the bots
 
 options:
   -h, --help  show this help message and exit
-  -2          2:1 tipping (DEFAULT)
+  -2          2:1 tipping
   -r          random tipping
 ```

@@ -45,7 +45,6 @@ def parse_args():
                        const='random',
                        dest='mode',
                        help="random tipping")
-    parser.set_defaults(mode='two_one')
     args = parser.parse_args()
     logger.debug("Command line arguments: %s", args)
 
