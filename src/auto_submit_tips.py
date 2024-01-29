@@ -141,8 +141,6 @@ def make_tips_2_1(driver):
     ext_url=f"{BASE_URL}/{COMMUNITY_URL}/{ADD_TIPS_URL}?tipperId={TIPPER_ID_2_1_BOT}"
     for i in range(NUMBER_MATCHDAYS):
         match_day = i+1
-        driver.get(f"{ext_url}&tippsaisonId={TIPP_SAISON_ID}")
-        driver.get(f"{ext_url}")
         driver.get(f"{ext_url}&tippsaisonId={TIPP_SAISON_ID}&spieltagIndex="+str(match_day))
 
         for cell in driver.find_elements(by=By.XPATH,
@@ -165,8 +163,6 @@ def make_random_tips(driver):
     ext_url=f"{BASE_URL}/{COMMUNITY_URL}/{ADD_TIPS_URL}?tipperId={TIPPER_ID_7_6_BOT}"
     for i in range(NUMBER_MATCHDAYS):
         match_day = i+1
-        driver.get(f"{ext_url}&tippsaisonId={TIPP_SAISON_ID}")
-        driver.get(f"{ext_url}")
         driver.get(f"{ext_url}&tippsaisonId={TIPP_SAISON_ID}&spieltagIndex="+str(match_day))
 
         table = driver.find_element(by=By.ID, value="tippsnachtragenSpiele")
