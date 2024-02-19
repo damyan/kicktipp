@@ -32,7 +32,6 @@ def parse_args():
     return (list): Return parsed arguments
     """
     parser = argparse.ArgumentParser(
-        prog='Kicktipp auto tipping',
         description='Perform automatic kicktipp tipping for the bots')
     group = parser.add_mutually_exclusive_group()
     group.add_argument('-2',
