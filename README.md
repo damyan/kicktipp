@@ -1,6 +1,7 @@
 ![pylint](https://img.shields.io/badge/PyLint-10.00-brightgreen?logo=python&logoColor=white)
 
 # Description
+foobar
 Implements some basic automation for auto submitting tips on [kicktipp](https://kicktipp.com). The auto submitting is based on [selenium](https://www.selenium.dev) browser automation. Login credentials are PGP-encrypted with [SOPS](https://technotim.live/posts/install-mozilla-sops/).
 
 Currently only two result submitting strategies are implemented:
