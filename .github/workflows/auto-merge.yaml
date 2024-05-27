@@ -18,7 +18,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Setup gh cli
-        uses: ksivamuthu/actions-setup-gh-cli@v2
+        uses: ksivamuthu/actions-setup-gh-cli@v3
 
       - name: Approve a Dependabot PR
         run: gh pr review --approve "$PR_URL"
