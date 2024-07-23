@@ -17,9 +17,9 @@ BASE_URL = "https://www.kicktipp.co.uk"
 COMMUNITY_URL = "cominghome2020"
 ADD_TIPS_URL = "spielleiter/tippsnachtragen"
 NUMBER_MATCHDAYS = 38
-TIPPER_ID_2_1_BOT = "46952968"   # 2:1 bot
-TIPPER_ID_7_6_BOT = "50360538"   # random bot
-TIPP_SAISON_ID = "1670602"
+TIPPER_ID_2_1_BOT = "61421576"   # 2:1 bot
+TIPPER_ID_7_6_BOT = "61421574"   # random bot
+TIPP_SAISON_ID = "2474249"
 CREDS_FILE_PATH = "config/creds-secret.yaml"
 
 RANDOM_RESULTS = []
