@@ -7,6 +7,7 @@ import random
 import os
 import subprocess
 import sys
+import time
 import yaml
 
 from selenium import webdriver
@@ -155,6 +156,7 @@ def make_tips_2_1(driver):
         logger.info("Submitted tips for match day %d/%d",
                     match_day,
                     NUMBER_MATCHDAYS)
+        time.sleep(1)
 
 def make_random_tips(driver):
     """Loop through all matchdays and submit random results for 7_6_bot"""
@@ -174,6 +176,7 @@ def make_random_tips(driver):
         logger.info("Submitted tips for match day %d/%d",
                     match_day,
                     NUMBER_MATCHDAYS)
+        time.sleep(1)
 
 def main() -> int:
     """Entry point"""
