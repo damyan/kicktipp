@@ -114,21 +114,21 @@ def init_global_random_array():
 
     distrbution:
     21%  - 0    goals
-    30%  - 1    goals
+    33%  - 1    goals
     24%  - 2    goals
-    15%  - 3    goals
-    6%   - 4    goals
-    2%   - 5    goals
+    14%  - 3    goals
+    5%   - 4    goals
+    1%   - 5    goals
     0.8% - 6,7  goals
     0.2% - 8,9  goals
     """
     global RANDOM_RESULTS # pylint: disable=global-statement
     RANDOM_RESULTS += [0] * 210
-    RANDOM_RESULTS += [1] * 300
+    RANDOM_RESULTS += [1] * 330
     RANDOM_RESULTS += [2] * 240
-    RANDOM_RESULTS += [3] * 150
-    RANDOM_RESULTS += [4] * 60
-    RANDOM_RESULTS += [5] * 20
+    RANDOM_RESULTS += [3] * 140
+    RANDOM_RESULTS += [4] * 50
+    RANDOM_RESULTS += [5] * 10
     RANDOM_RESULTS += [6] * 8
     RANDOM_RESULTS += [7] * 8
     RANDOM_RESULTS += [8] * 2
